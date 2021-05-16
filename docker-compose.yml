@@ -1,0 +1,30 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  galaxy:
+    container_name: galaxy_iac    
+    # build: .
+    image: galaxyiac:latest
+    ports:
+        - "5432:5432"
+        - "8000:8000"
+    volumes:      
+        - logs:/var/log        
+    links:
+        - database
+    networks:
+        - db_con
+    depends_on:
+        - "database"
+  database:
+    container_name: galaxy_post
+    image: postgres
+    environment:
+        - "POSTGRES_USER=galaxy"
+        - "POSTGRES_PASSWORD=galaxy"
+        - "POSTGRES_DB=galaxy"
+    networks:
+        - db_con
+networks: 
+    db_con
+volumes:
+    logs
