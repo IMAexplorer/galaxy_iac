@@ -133,7 +133,7 @@ galaxy:
   # string to specify an external database instead.
   # Sample default
   # 'sqlite:///<data_dir>/universe.sqlite?isolation_level=IMMEDIATE'
-  database_connection: "postgresql://galaxy:galaxy@localhost/galaxy"
+  database_connection: "postgresql://galaxy:galaxy@database/galaxy"
 
   # If the server logs errors about not having enough database pool
   # connections, you will want to increase these values, or consider

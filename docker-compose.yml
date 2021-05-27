@@ -7,7 +7,7 @@ services:
     ports:
         - "5432:5432"
         - "8000:8000"
-    volumes:      
+    volumes:
         - logs:/var/log     
     links:
         - database
@@ -28,6 +28,7 @@ services:
         - db_con
 networks: 
     db_con:
+        driver: bridge
 volumes:
     logs:
     database:
