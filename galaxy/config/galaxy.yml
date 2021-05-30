@@ -1846,7 +1846,7 @@ galaxy:
   # configuration file.
   # The value of this option will be resolved with respect to
   # <config_dir>.
-  #job_config_file: job_conf.xml
+  job_config_file: job_conf.xml
 
   # Description of job running configuration, can be embedded into
   # Galaxy configuration or loaded from an additional file with the
