@@ -1,0 +1,22 @@
+FROM ubuntu:20.04 
+
+USER root
+ENV DEBIAN_FRONTEND="noninteractive"
+RUN apt-get update && apt-get install -y python3.7 && apt install -y python3-pip && apt install -y libpq-dev
+RUN apt-get update && apt-get install -y software-properties-common && add-apt-repository -y ppa:natefoo/slurm-drmaa && apt-get install -y slurm-drmaa-dev
+RUN apt-get update && apt-get install -y slurm-wlm slurm-wlm-doc && apt-get install -y mailutils
+RUN apt-get -y install tzdata
+RUN apt install -y postgresql postgresql-contrib 
+RUN pip3 install psycopg2
+
+ADD slurm.conf /etc/slurm-llnl/
+RUN mkdir -p /var/spool/slurm-llnl && touch /var/log/slurm_jobacct.log && chown -R slurm:slurm /var/spool/
+ADD galaxy galaxy
+WORKDIR galaxy
+
+EXPOSE 8000
+EXPOSE 5432
+
+ENV NODE_OPTIONS=--max-old-space-size=4096
+ENV DRMAA_LIBRARY_PATH="/usr/lib/slurm-drmaa/lib/libdrmaa.so.1"
+CMD service postgresql start && python3 scripts/postgres.py && service munge start && service slurmd start && service slurmctld start && sh run.sh

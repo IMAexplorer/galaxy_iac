@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<job_conf>
+<plugins workers="2">
+    <plugin id="local" type="runner" load="galaxy.jobs.runners.local:LocalJobRunner"/>
+    <plugin id="slurm" type="runner" load="galaxy.jobs.runners.slurm:SlurmJobRunner">
+        <param id="drmaa_library_path">/usr/lib/slurm-drmaa/lib/libdrmaa.so.1</param>
+    </plugin>
+</plugins>
+<destinations default="slurm">
+    <destination id="local" runner="local">
+        <param id="local_slots">4</param>
+    </destination>
+    <destination id="slurm" runner="slurm">
+        <param id="embed_metadata_in_job">False</param>
+        <param id="nativeSpecification">-p Galaxy</param>
+        <env file="/galaxy-central/.venv/bin/activate" />
+    </destination>
+</destinations>
+</job_conf>
