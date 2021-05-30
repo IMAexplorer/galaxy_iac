@@ -2,8 +2,8 @@ version: "3.9"  # optional since v1.27.0
 services:
   galaxy:
     container_name: galaxy_iac    
-    # build: .
-    image: galaxyiac:latest
+    build: .
+    # image: galaxyiac:latest
     ports:
         - "5432:5432"
         - "8000:8000"
