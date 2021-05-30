@@ -12,6 +12,7 @@ RUN git clone -b release_21.01 https://github.com/galaxyproject/galaxy.git
 ADD galaxy.yml /galaxy/config
 ADD slurm.conf /etc/slurm-llnl/
 ADD requirements.txt /galaxy
+ADD job_conf.xml /galaxy/config
 
 RUN mkdir -p /var/spool/slurm-llnl && touch /var/log/slurm_jobacct.log && chown -R slurm:slurm /var/spool/
 
